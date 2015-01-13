@@ -30,4 +30,18 @@ public class Bill {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	public void printBill() {
+		if (this.details == null) 
+			this.details = "";
+		if (this.date == null)
+			this.date = "";
+		
+		System.out.println("========== Bill starts ==========");
+		System.out.println("Expense: " + this.expense);
+		System.out.println("Details: " + this.details);
+		System.out.println("RecDate: " + this.date);
+		System.out.println("========== Bill ends ==========");
+		
+	}
 }

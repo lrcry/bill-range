@@ -1,4 +1,4 @@
-package cn.range.tools.db;
+package cn.range.tools.db.jobs;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -105,11 +105,12 @@ public class BillRecorder {
 			throws SQLException {
 		pStmt.setDouble(1, bill.getExpense());
 		pStmt.setString(2, bill.getDetails());
-		Date date = getDateFromString(bill.getDate());
+		String date = getDateFromString(bill.getDate(), dateFormat);
 		if (date == null) {
 			return false;
 		}
-		pStmt.setString(3, bill.getDate());
+		System.out.println("Now date is " + date);
+		pStmt.setString(3, date);
 		return true;
 	}
 
@@ -134,10 +135,12 @@ public class BillRecorder {
 	 *            string of a date
 	 * @return date in the string
 	 */
-	private Date getDateFromString(String dateString) {
+	private String getDateFromString(String dateString, DateFormat format) {
+//		System.out.println("dateString=[" + dateString + "] and it is empty? " + (dateString.equals("")));
 		if (dateString == null || dateString.equals("")
 				|| dateString.equals("''")) {
-			return new Date();
+//			System.out.println("If it is empty, it should be a new Date today.");
+			return format.format(new Date());
 		}
 
 		Date date = null;
@@ -148,6 +151,6 @@ public class BillRecorder {
 			System.out.println("Date problem");
 		}
 
-		return date;
+		return dateString;
 	}
 }
